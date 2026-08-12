@@ -1,6 +1,6 @@
 /**
  * CHANDIPUR DENTAL CLINIC - MAIN APPLICATION LOGIC
- * High-performance 300-frame Hero sequence engine, fallback frame search, & ultra-fast mobile UI
+ * High-performance 300-frame Sequence Tour Engine, Hero Preview Sync, & Booking Modal
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,7 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('hero-sequence-canvas');
   const ctx = canvas ? canvas.getContext('2d', { alpha: false }) : null;
   const heroFrameBadge = document.getElementById('hero-frame-num');
-  const heroSection = document.getElementById('hero');
+  const tourSection = document.getElementById('tour');
+  const tourScrollTrack = document.querySelector('.sequence-scroll-track');
+  const heroPreviewImg = document.getElementById('hero-preview-img');
 
   const mainHeader = document.getElementById('main-header');
   const mobileToggle = document.getElementById('mobile-toggle');
@@ -35,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalForm = document.getElementById('modal-form');
 
   /* ==========================================================================
-     1. Image Preloading Engine with Immediate Fallback Support
+     1. Image Preloading Engine
      ========================================================================== */
   function getFrameUrl(index) {
     const padded = String(index).padStart(3, '0');
@@ -54,13 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (progressBar) progressBar.style.width = `${percent}%`;
         if (progressText) progressText.innerText = `${percent}%`;
 
-        // Render immediately when initial keyframe loads
+        // Render initial keyframe as soon as it arrives
         if (i === 1 || !preloaderHidden) {
           renderFrame(currentFrameIndex);
         }
 
-        // Hide preloader once 15% loaded or 100% loaded for ultra-fast startup
-        if ((loadedCount >= 25 || loadedCount === TOTAL_FRAMES) && !preloaderHidden) {
+        // Hide preloader once initial batch is ready
+        if ((loadedCount >= 20 || loadedCount === TOTAL_FRAMES) && !preloaderHidden) {
           preloaderHidden = true;
           if (preloader) preloader.classList.add('loaded');
         }
@@ -75,24 +77,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     2. Nearest Loaded Frame Resolver (Prevents Freezing on Slow Networks)
+     2. Fallback Frame Resolver
      ========================================================================== */
   function getBestAvailableFrame(targetIdx) {
     const safeIdx = Math.max(0, Math.min(TOTAL_FRAMES - 1, Math.round(targetIdx)));
     
-    // 1. Check exact target frame
     if (frames[safeIdx] && frames[safeIdx].complete && frames[safeIdx].naturalWidth > 0) {
       return { img: frames[safeIdx], index: safeIdx };
     }
 
-    // 2. Search backwards for most recent loaded frame
     for (let i = safeIdx - 1; i >= 0; i--) {
       if (frames[i] && frames[i].complete && frames[i].naturalWidth > 0) {
         return { img: frames[i], index: i };
       }
     }
 
-    // 3. Search forwards if no earlier frame is loaded yet
     for (let i = safeIdx + 1; i < TOTAL_FRAMES; i++) {
       if (frames[i] && frames[i].complete && frames[i].naturalWidth > 0) {
         return { img: frames[i], index: i };
@@ -103,16 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     3. Bulletproof Hero Canvas Render Engine
+     3. Dedicated 300-Frame Canvas Tour Render Engine
      ========================================================================== */
   function renderFrame(index) {
-    if (!canvas || !ctx) return;
-
     const frameData = getBestAvailableFrame(index);
     if (!frameData) return;
 
     const img = frameData.img;
     const activeIndex = frameData.index;
+
+    // Update Hero Preview Image if visible
+    if (heroPreviewImg && img.src) {
+      heroPreviewImg.src = img.src;
+    }
+
+    if (!canvas || !ctx) return;
 
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
@@ -164,13 +168,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function calculateTargetFrame() {
-    if (!heroSection) return;
-    const rect = heroSection.getBoundingClientRect();
-    const scrollableHeight = heroSection.offsetHeight - window.innerHeight;
+    if (!tourSection || !tourScrollTrack) return;
+    const rect = tourSection.getBoundingClientRect();
+    const scrollableDistance = tourScrollTrack.clientHeight - window.innerHeight;
 
-    if (scrollableHeight > 0) {
+    if (scrollableDistance > 0) {
       const scrolled = -rect.top;
-      const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
+      const progress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
       targetFrameIndex = progress * (TOTAL_FRAMES - 1);
     }
   }

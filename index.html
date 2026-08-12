@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Perfect 1:1 Mobile Viewport (Prevents auto-zoom & horizontal scroll on all phones) -->
+  <!-- Perfect 1:1 Mobile Viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   
   <!-- Primary SEO Meta Tags -->
@@ -64,7 +64,7 @@
         <div id="progress-bar" class="progress-bar"></div>
       </div>
       <div id="progress-text" class="progress-text">0%</div>
-      <div class="loader-hint">Loading Clinic Experience...</div>
+      <div class="loader-hint">Loading 300 Interactive Clinic Frames...</div>
     </div>
   </div>
 
@@ -92,10 +92,12 @@
 
       <!-- Desktop Navigation Menu -->
       <nav class="nav-menu">
+        <a href="#hero" class="nav-link">Home</a>
+        <a href="#tour" class="nav-link">300-Frame Tour</a>
         <a href="#about" class="nav-link">About Doctor</a>
         <a href="#services" class="nav-link">Services</a>
         <a href="#reviews" class="nav-link">Reviews</a>
-        <a href="#location" class="nav-link">Location & Directions</a>
+        <a href="#location" class="nav-link">Location</a>
       </nav>
 
       <!-- Header Action CTAs -->
@@ -126,6 +128,8 @@
     <!-- Mobile Drawer Navigation -->
     <div id="mobile-drawer" class="mobile-drawer">
       <nav class="mobile-nav">
+        <a href="#hero" class="mobile-nav-link">Home</a>
+        <a href="#tour" class="mobile-nav-link">300-Frame Clinic Tour</a>
         <a href="#about" class="mobile-nav-link">About Dr. Maity</a>
         <a href="#services" class="mobile-nav-link">Services</a>
         <a href="#reviews" class="mobile-nav-link">Patient Reviews</a>
@@ -147,22 +151,11 @@
   <!-- Main Content Wrapper -->
   <main>
 
-    <!-- SECTION 1: HERO WITH INTEGRATED 300-FRAME SCROLL ANIMATION -->
-    <section id="hero" class="hero-sequence-section">
-      
-      <!-- Sticky Canvas Container for 300-Frame Animation -->
-      <div class="hero-canvas-sticky">
-        <canvas id="hero-sequence-canvas"></canvas>
-        <div id="hero-frame-badge" class="hero-frame-badge">
-          <span class="badge-dot"></span>
-          <span id="hero-frame-num">FRAME 001 / 300</span>
-        </div>
-      </div>
-
-      <!-- Floating Content Overlay -->
-      <div class="hero-content-overlay">
+    <!-- SECTION 1: HERO SECTION WITH SIDE-BY-SIDE CLINIC PREVIEW -->
+    <section id="hero" class="hero-split-section">
+      <div class="container hero-grid">
         
-        <div class="hero-glass-card">
+        <div class="hero-text-col">
           <div class="hero-badge">
             <span class="badge-dot"></span>
             <span>RENUKA PHYSIOTHERAPY CENTER UNIT</span>
@@ -195,7 +188,6 @@
             </a>
           </div>
 
-          <!-- Trust Badges Bar -->
           <div class="hero-trust-bar">
             <div class="trust-item">
               <span class="trust-icon">★</span>
@@ -215,13 +207,42 @@
           </div>
         </div>
 
-      </div>
+        <!-- Interactive Animated Preview Box -->
+        <div class="hero-media-col">
+          <div class="hero-video-card">
+            <img id="hero-preview-img" src="frames/ezgif-frame-001.jpg" alt="Chandipur Dental Clinic Walkthrough Preview" class="hero-preview-img">
+            <div class="hero-play-overlay">
+              <a href="#tour" class="btn-tour-pulse">
+                <span>Explore 300-Frame Tour ↓</span>
+              </a>
+            </div>
+          </div>
+        </div>
 
-      <!-- Extended Scroll Track Height for Hero 300-Frame Animation -->
-      <div class="hero-scroll-track"></div>
+      </div>
     </section>
 
-    <!-- SECTION 2: TRUST & CREDIBILITY METRICS -->
+    <!-- SECTION 2: DEDICATED 300-FRAME FULL-SCREEN VIRTUAL CLINIC TOUR -->
+    <section id="tour" class="sequence-section">
+      
+      <div class="sequence-sticky-container">
+        <canvas id="hero-sequence-canvas"></canvas>
+
+        <div class="sequence-overlay-badge">
+          <span class="badge-dot"></span>
+          <span id="hero-frame-num">FRAME 001 / 300</span>
+        </div>
+
+        <div class="sequence-instruction-pill">
+          <span>Scroll down to walk through Chandipur Dental Clinic</span>
+        </div>
+      </div>
+
+      <!-- Scroll Track Container -->
+      <div class="sequence-scroll-track"></div>
+    </section>
+
+    <!-- SECTION 3: TRUST & CREDIBILITY METRICS -->
     <section id="trust" class="trust-section">
       <div class="container">
         <div class="trust-grid">
@@ -254,7 +275,7 @@
       </div>
     </section>
 
-    <!-- SECTION 3: SERVICES -->
+    <!-- SECTION 4: SERVICES -->
     <section id="services" class="services-section">
       <div class="container">
         
@@ -329,7 +350,7 @@
       </div>
     </section>
 
-    <!-- SECTION 4: ABOUT THE DOCTOR -->
+    <!-- SECTION 5: ABOUT THE DOCTOR -->
     <section id="about" class="about-section">
       <div class="container about-grid">
         
@@ -380,7 +401,7 @@
       </div>
     </section>
 
-    <!-- SECTION 5: REVIEWS & PATIENT FEEDBACK -->
+    <!-- SECTION 6: REVIEWS & PATIENT FEEDBACK -->
     <section id="reviews" class="reviews-section">
       <div class="container">
         
@@ -453,7 +474,7 @@
       </div>
     </section>
 
-    <!-- SECTION 6: LOCATION & CONTACT -->
+    <!-- SECTION 7: LOCATION & CONTACT -->
     <section id="location" class="location-section">
       <div class="container location-grid">
         
