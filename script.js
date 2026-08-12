@@ -1,16 +1,17 @@
 /**
  * CHANDIPUR DENTAL CLINIC - MAIN APPLICATION LOGIC
- * High-performance 300-frame Hero sequence engine, booking modal, & ultra-responsive UI
+ * High-performance 300-frame Hero sequence engine, fallback frame search, & ultra-fast mobile UI
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   const TOTAL_FRAMES = 300;
   const frames = [];
   let loadedCount = 0;
+  let preloaderHidden = false;
 
   let currentFrameIndex = 0;
   let targetFrameIndex = 0;
-  const lerpFactor = 0.2;
+  const lerpFactor = 0.22;
 
   // DOM Elements
   const preloader = document.getElementById('preloader');
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalForm = document.getElementById('modal-form');
 
   /* ==========================================================================
-     1. Image Preloading Engine
+     1. Image Preloading Engine with Immediate Fallback Support
      ========================================================================== */
   function getFrameUrl(index) {
     const padded = String(index).padStart(3, '0');
@@ -53,42 +54,65 @@ document.addEventListener('DOMContentLoaded', () => {
         if (progressBar) progressBar.style.width = `${percent}%`;
         if (progressText) progressText.innerText = `${percent}%`;
 
-        // Draw first frame immediately as soon as it loads
-        if (i === 1) {
-          renderFrame(0);
+        // Render immediately when initial keyframe loads
+        if (i === 1 || !preloaderHidden) {
+          renderFrame(currentFrameIndex);
         }
 
-        if (loadedCount === TOTAL_FRAMES) {
-          onAllFramesLoaded();
+        // Hide preloader once 15% loaded or 100% loaded for ultra-fast startup
+        if ((loadedCount >= 25 || loadedCount === TOTAL_FRAMES) && !preloaderHidden) {
+          preloaderHidden = true;
+          if (preloader) preloader.classList.add('loaded');
         }
       };
 
       img.onerror = () => {
-        setTimeout(() => { img.src = getFrameUrl(i); }, 200);
+        setTimeout(() => { img.src = getFrameUrl(i); }, 300);
       };
 
       frames.push(img);
     }
   }
 
-  function onAllFramesLoaded() {
-    setTimeout(() => {
-      if (preloader) preloader.classList.add('loaded');
-      renderFrame(0);
-      startSequenceRenderLoop();
-    }, 100);
+  /* ==========================================================================
+     2. Nearest Loaded Frame Resolver (Prevents Freezing on Slow Networks)
+     ========================================================================== */
+  function getBestAvailableFrame(targetIdx) {
+    const safeIdx = Math.max(0, Math.min(TOTAL_FRAMES - 1, Math.round(targetIdx)));
+    
+    // 1. Check exact target frame
+    if (frames[safeIdx] && frames[safeIdx].complete && frames[safeIdx].naturalWidth > 0) {
+      return { img: frames[safeIdx], index: safeIdx };
+    }
+
+    // 2. Search backwards for most recent loaded frame
+    for (let i = safeIdx - 1; i >= 0; i--) {
+      if (frames[i] && frames[i].complete && frames[i].naturalWidth > 0) {
+        return { img: frames[i], index: i };
+      }
+    }
+
+    // 3. Search forwards if no earlier frame is loaded yet
+    for (let i = safeIdx + 1; i < TOTAL_FRAMES; i++) {
+      if (frames[i] && frames[i].complete && frames[i].naturalWidth > 0) {
+        return { img: frames[i], index: i };
+      }
+    }
+
+    return null;
   }
 
   /* ==========================================================================
-     2. Bulletproof Hero Canvas Render Engine
+     3. Bulletproof Hero Canvas Render Engine
      ========================================================================== */
   function renderFrame(index) {
     if (!canvas || !ctx) return;
 
-    const frameIdx = Math.max(0, Math.min(TOTAL_FRAMES - 1, Math.round(index)));
-    const img = frames[frameIdx];
+    const frameData = getBestAvailableFrame(index);
+    if (!frameData) return;
 
-    if (!img || !img.complete || img.naturalWidth === 0) return;
+    const img = frameData.img;
+    const activeIndex = frameData.index;
 
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
@@ -134,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.restore();
 
     if (heroFrameBadge) {
-      const displayNum = String(frameIdx + 1).padStart(3, '0');
+      const displayNum = String(activeIndex + 1).padStart(3, '0');
       heroFrameBadge.innerText = `FRAME ${displayNum} / ${TOTAL_FRAMES}`;
     }
   }
@@ -163,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     3. Header & Navigation Controls
+     4. Header & Navigation Controls
      ========================================================================== */
   window.addEventListener('scroll', () => {
     if (window.scrollY > 30) {
@@ -187,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     4. Booking Modal & Form Handler
+     5. Booking Modal & Form Handler
      ========================================================================== */
   openBookingBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -231,6 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', () => renderFrame(currentFrameIndex));
   window.addEventListener('orientationchange', () => renderFrame(currentFrameIndex));
 
-  /* Initialize Preloader & Animation Engine */
+  /* Initialize Preloader & Start Animation Loop */
   preloadImages();
+  startSequenceRenderLoop();
 });
