@@ -1,6 +1,6 @@
 /**
  * CHANDIPUR DENTAL CLINIC - MAIN APPLICATION LOGIC
- * High-performance 300-frame Hero sequence engine, booking modal, & mobile fast UI
+ * High-performance 300-frame Hero sequence engine, booking modal, & ultra-responsive UI
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentFrameIndex = 0;
   let targetFrameIndex = 0;
-  const lerpFactor = 0.18;
+  const lerpFactor = 0.2;
 
   // DOM Elements
   const preloader = document.getElementById('preloader');
@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const ctx = canvas ? canvas.getContext('2d', { alpha: false }) : null;
   const heroFrameBadge = document.getElementById('hero-frame-num');
   const heroSection = document.getElementById('hero');
-  const heroScrollTrack = document.querySelector('.hero-scroll-track');
 
   const mainHeader = document.getElementById('main-header');
   const mobileToggle = document.getElementById('mobile-toggle');
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalForm = document.getElementById('modal-form');
 
   /* ==========================================================================
-     1. Image Preloading Engine (Fast Batching)
+     1. Image Preloading Engine
      ========================================================================== */
   function getFrameUrl(index) {
     const padded = String(index).padStart(3, '0');
@@ -54,6 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (progressBar) progressBar.style.width = `${percent}%`;
         if (progressText) progressText.innerText = `${percent}%`;
 
+        // Draw first frame immediately as soon as it loads
+        if (i === 1) {
+          renderFrame(0);
+        }
+
         if (loadedCount === TOTAL_FRAMES) {
           onAllFramesLoaded();
         }
@@ -70,26 +74,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function onAllFramesLoaded() {
     setTimeout(() => {
       if (preloader) preloader.classList.add('loaded');
-      resizeCanvas();
       renderFrame(0);
       startSequenceRenderLoop();
-    }, 150);
+    }, 100);
   }
 
   /* ==========================================================================
-     2. Hero Canvas Resize & Mobile Optimized Sequence Engine
+     2. Bulletproof Hero Canvas Render Engine
      ========================================================================== */
-  function resizeCanvas() {
-    if (!canvas || !ctx) return;
-    const isMobile = window.innerWidth <= 768;
-    const dpr = isMobile ? 1.2 : Math.min(window.devicePixelRatio || 1, 2);
-    const container = canvas.parentElement;
-    canvas.width = container.clientWidth * dpr;
-    canvas.height = container.clientHeight * dpr;
-    ctx.scale(dpr, dpr);
-    renderFrame(Math.round(currentFrameIndex));
-  }
-
   function renderFrame(index) {
     if (!canvas || !ctx) return;
 
@@ -98,32 +90,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!img || !img.complete || img.naturalWidth === 0) return;
 
-    const container = canvas.parentElement;
-    const canvasWidth = container.clientWidth;
-    const canvasHeight = container.clientHeight;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+
+    if (width === 0 || height === 0) return;
+
+    const isMobile = window.innerWidth <= 768;
+    const dpr = isMobile ? 1.2 : Math.min(window.devicePixelRatio || 1, 2);
+    const targetWidth = Math.round(width * dpr);
+    const targetHeight = Math.round(height * dpr);
+
+    if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+    }
+
+    ctx.save();
+    ctx.scale(dpr, dpr);
+
     const imgWidth = img.naturalWidth;
     const imgHeight = img.naturalHeight;
 
     const imgRatio = imgWidth / imgHeight;
-    const canvasRatio = canvasWidth / canvasHeight;
+    const canvasRatio = width / height;
 
     let drawWidth, drawHeight, offsetX, offsetY;
 
     if (canvasRatio > imgRatio) {
-      drawHeight = canvasHeight;
-      drawWidth = canvasHeight * imgRatio;
-      offsetX = (canvasWidth - drawWidth) / 2;
+      drawHeight = height;
+      drawWidth = height * imgRatio;
+      offsetX = (width - drawWidth) / 2;
       offsetY = 0;
     } else {
-      drawWidth = canvasWidth;
-      drawHeight = canvasWidth / imgRatio;
+      drawWidth = width;
+      drawHeight = width / imgRatio;
       offsetX = 0;
-      offsetY = (canvasHeight - drawHeight) / 2;
+      offsetY = (height - drawHeight) / 2;
     }
 
     ctx.fillStyle = '#05070a';
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    ctx.fillRect(0, 0, width, height);
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+    ctx.restore();
 
     if (heroFrameBadge) {
       const displayNum = String(frameIdx + 1).padStart(3, '0');
@@ -131,23 +139,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function calculateTargetFrame() {
+    if (!heroSection) return;
+    const rect = heroSection.getBoundingClientRect();
+    const scrollableHeight = heroSection.offsetHeight - window.innerHeight;
+
+    if (scrollableHeight > 0) {
+      const scrolled = -rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
+      targetFrameIndex = progress * (TOTAL_FRAMES - 1);
+    }
+  }
+
   function startSequenceRenderLoop() {
     function loop() {
-      if (heroSection && heroScrollTrack) {
-        const rect = heroSection.getBoundingClientRect();
-        const sectionTop = rect.top;
-        const totalScrollableDistance = heroScrollTrack.clientHeight - window.innerHeight;
-
-        if (totalScrollableDistance > 0) {
-          const scrolled = -sectionTop;
-          const progress = Math.max(0, Math.min(1, scrolled / totalScrollableDistance));
-          targetFrameIndex = progress * (TOTAL_FRAMES - 1);
-        }
-      }
-
+      calculateTargetFrame();
       currentFrameIndex += (targetFrameIndex - currentFrameIndex) * lerpFactor;
       renderFrame(currentFrameIndex);
-
       requestAnimationFrame(loop);
     }
 
@@ -220,9 +228,9 @@ document.addEventListener('DOMContentLoaded', () => {
   handleFormSubmit(appointmentForm, document.getElementById('form-feedback'));
   handleFormSubmit(modalForm, document.getElementById('modal-feedback'));
 
-  window.addEventListener('resize', resizeCanvas);
-  window.addEventListener('orientationchange', resizeCanvas);
+  window.addEventListener('resize', () => renderFrame(currentFrameIndex));
+  window.addEventListener('orientationchange', () => renderFrame(currentFrameIndex));
 
-  /* Initialize Image Preloader */
+  /* Initialize Preloader & Animation Engine */
   preloadImages();
 });
