@@ -1,6 +1,6 @@
 /* ==========================================================================
    CHANDIPUR DENTAL CLINIC - STITCH DESIGN SYSTEM STYLESHEET
-   Pro Mobile UX: Floating Call & WhatsApp Action Pop-up Buttons (FABs)
+   100% Responsive, Zero Horizontal Overflow, Ultra-Fast Mobile UX
    ========================================================================== */
 
 :root {
@@ -40,33 +40,32 @@
   --radius-lg: 16px;
   --radius-full: 9999px;
   
-  --header-height: 76px;
+  --header-height: 70px;
 }
 
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
+html, body {
   width: 100%;
-  min-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden !important;
+  position: relative;
   background-color: var(--surface);
   color: var(--text-main);
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
-  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--surface);
@@ -78,9 +77,10 @@ body {
 
 .container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .text-center {
@@ -101,7 +101,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
 #preloader.loaded {
@@ -112,14 +112,14 @@ body {
 
 .loader-box {
   text-align: center;
-  max-width: 380px;
-  width: 90%;
+  max-width: 340px;
+  width: 88%;
 }
 
 .loader-spinner {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 20px;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 16px;
   border: 4px solid var(--primary-light);
   border-top-color: var(--primary);
   border-radius: 50%;
@@ -132,17 +132,17 @@ body {
 
 .loader-brand {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
   color: var(--primary-dark);
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   margin-bottom: 4px;
 }
 
 .loader-sub {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-muted);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .progress-track {
@@ -164,10 +164,10 @@ body {
 
 .progress-text {
   font-family: var(--font-heading);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--primary);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .loader-hint {
@@ -183,8 +183,9 @@ body {
   top: 0;
   left: 0;
   width: 100%;
+  max-width: 100vw;
   height: var(--header-height);
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-color);
@@ -202,21 +203,22 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  max-width: 1320px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-decoration: none;
 }
 
 .brand-symbol {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   background: var(--primary);
   color: #fff;
   border-radius: var(--radius-md);
@@ -227,8 +229,8 @@ body {
 }
 
 .brand-symbol svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 .brand-text {
@@ -238,7 +240,7 @@ body {
 
 .brand-name {
   font-family: var(--font-heading);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
   color: var(--primary-dark);
   letter-spacing: 0.5px;
@@ -246,7 +248,7 @@ body {
 }
 
 .brand-sub {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--secondary);
   font-weight: 600;
 }
@@ -258,10 +260,10 @@ body {
   gap: 6px;
   background: var(--secondary-light);
   border: 1px solid rgba(0, 168, 150, 0.2);
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: var(--radius-full);
   text-decoration: none;
-  font-size: 13px;
+  font-size: 12px;
   transition: transform 0.2s ease;
 }
 
@@ -271,7 +273,6 @@ body {
 
 .rating-chip .stars {
   color: #f59e0b;
-  letter-spacing: 1px;
 }
 
 .rating-chip .score {
@@ -287,7 +288,7 @@ body {
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
 }
 
 .nav-link {
@@ -306,7 +307,7 @@ body {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .btn-whatsapp-sm {
@@ -316,7 +317,7 @@ body {
   background: var(--whatsapp-light);
   color: #0d8438;
   border: 1px solid rgba(37, 211, 102, 0.3);
-  padding: 8px 14px;
+  padding: 8px 12px;
   border-radius: var(--radius-sm);
   text-decoration: none;
   font-size: 13px;
@@ -346,12 +347,12 @@ body {
 .btn-phone {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   text-decoration: none;
   color: var(--primary-dark);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  padding: 8px 14px;
+  padding: 8px 12px;
   border-radius: var(--radius-sm);
   background: var(--surface-tint);
   transition: all 0.2s ease;
@@ -363,8 +364,8 @@ body {
 }
 
 .btn-phone svg {
-  width: 16px !important;
-  height: 16px !important;
+  width: 15px !important;
+  height: 15px !important;
   color: var(--primary);
 }
 
@@ -379,7 +380,7 @@ body {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
-  padding: 10px 20px;
+  padding: 9px 18px;
   border-radius: var(--radius-md);
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(0, 86, 179, 0.25);
@@ -388,8 +389,7 @@ body {
 
 .btn-primary:hover {
   background: var(--primary-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 86, 179, 0.35);
+  transform: translateY(-1px);
 }
 
 .btn-whatsapp-lg {
@@ -403,17 +403,15 @@ body {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
-  padding: 12px 20px;
+  padding: 11px 20px;
   border-radius: var(--radius-md);
   cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
   transition: all 0.25s ease;
 }
 
 .btn-whatsapp-lg:hover {
   background: var(--whatsapp-hover);
-  transform: translateY(-2px);
 }
 
 .btn-whatsapp-hero {
@@ -425,19 +423,13 @@ body {
   color: #ffffff;
   border: none;
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  padding: 12px 20px;
-  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
   transition: all 0.25s ease;
-}
-
-.btn-whatsapp-hero:hover {
-  background: var(--whatsapp-hover);
-  transform: translateY(-2px);
 }
 
 .btn-secondary {
@@ -449,19 +441,13 @@ body {
   color: var(--primary-dark);
   border: 1px solid var(--border-color);
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  padding: 12px 20px;
-  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   text-decoration: none;
   transition: all 0.25s ease;
-}
-
-.btn-secondary:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: var(--primary-light);
 }
 
 .mobile-toggle {
@@ -469,13 +455,13 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 6px;
   flex-direction: column;
   gap: 5px;
 }
 
 .mobile-toggle span {
-  width: 24px;
+  width: 22px;
   height: 2px;
   background: var(--text-main);
   transition: all 0.3s ease;
@@ -488,10 +474,11 @@ body {
   top: var(--header-height);
   left: 0;
   width: 100%;
+  max-width: 100vw;
   background: #ffffff;
   border-bottom: 1px solid var(--border-color);
   box-shadow: var(--shadow-lg);
-  padding: 24px;
+  padding: 20px;
   transform: translateY(-100%);
   transition: transform 0.3s ease;
   z-index: 999;
@@ -504,13 +491,13 @@ body {
 .mobile-nav {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .mobile-nav-link {
   text-decoration: none;
   color: var(--text-main);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   padding: 8px 0;
   border-bottom: 1px solid var(--surface-tint);
@@ -519,8 +506,8 @@ body {
 .mobile-drawer-actions {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 16px;
+  gap: 10px;
+  margin-top: 14px;
 }
 
 .btn-primary.full, .btn-phone.full, .btn-whatsapp-lg.full {
@@ -532,36 +519,39 @@ body {
    Section Components & Typography
    ========================================================================== */
 section {
-  padding: 90px 0;
+  padding: 80px 0;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .section-tag {
   display: inline-block;
   font-family: var(--font-heading);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   color: var(--secondary);
   background: var(--secondary-light);
-  padding: 4px 12px;
+  padding: 4px 10px;
   border-radius: var(--radius-full);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .section-title {
   font-family: var(--font-heading);
-  font-size: clamp(26px, 4vw, 36px);
+  font-size: clamp(22px, 3.5vw, 34px);
   font-weight: 800;
   color: var(--primary-dark);
   line-height: 1.2;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .section-subtitle {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--text-muted);
-  max-width: 640px;
-  margin: 0 auto 40px;
+  max-width: 600px;
+  margin: 0 auto 36px;
 }
 
 /* ==========================================================================
@@ -570,15 +560,18 @@ section {
 .hero-sequence-section {
   position: relative;
   width: 100%;
+  max-width: 100vw;
   background: #05070a;
   color: #ffffff;
   padding: 0;
+  overflow-x: hidden;
 }
 
 .hero-canvas-sticky {
   position: sticky;
   top: 0;
   width: 100%;
+  max-width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -596,21 +589,21 @@ section {
 
 .hero-frame-badge {
   position: absolute;
-  top: calc(var(--header-height) + 16px);
-  right: 24px;
+  top: calc(var(--header-height) + 12px);
+  right: 14px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background: rgba(15, 19, 28, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(15, 19, 28, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
+  border-radius: 16px;
   font-family: monospace;
-  font-size: 12px;
+  font-size: 11px;
   color: #00f2fe;
-  z-index: 20;
+  z-index: 25;
 }
 
 .hero-frame-badge .badge-dot {
@@ -623,60 +616,63 @@ section {
 .hero-content-overlay {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   width: 100%;
+  max-width: 100vw;
   height: 100vh;
   z-index: 20;
   pointer-events: none;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: var(--header-height);
+  justify-content: center;
+  padding: var(--header-height) 16px 70px;
+  box-sizing: border-box;
 }
 
 .hero-glass-card {
-  max-width: 520px;
+  max-width: 500px;
   width: 100%;
+  box-sizing: border-box;
   background: rgba(10, 15, 25, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 28px;
+  padding: 24px;
   border-radius: var(--radius-lg);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
   pointer-events: auto;
 }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 4px 12px;
+  padding: 4px 10px;
   border-radius: var(--radius-full);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   color: #00f2fe;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   letter-spacing: 0.5px;
 }
 
 .hero-badge .badge-dot {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   background: #00f2fe;
   border-radius: 50%;
 }
 
 .hero-title {
   font-family: var(--font-heading);
-  font-size: clamp(24px, 3.5vw, 38px);
+  font-size: clamp(20px, 3.2vw, 34px);
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.18;
   color: #ffffff;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .hero-title .highlight {
@@ -684,51 +680,44 @@ section {
 }
 
 .hero-description {
-  font-size: 14px;
+  font-size: 13px;
   color: #a0aec0;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   line-height: 1.5;
 }
 
-/* PRO COMPACT HERO BUTTONS */
 .hero-cta-group {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 24px;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+  margin-bottom: 18px;
 }
 
 .btn-hero {
-  padding: 10px 16px !important;
+  width: 100%;
+  height: 40px !important;
+  padding: 8px 14px !important;
   font-size: 13px !important;
   border-radius: var(--radius-sm) !important;
-  height: 42px;
-  box-shadow: none !important;
+  justify-content: center;
 }
 
 .btn-whatsapp-hero {
-  height: 42px;
-  padding: 10px 16px !important;
+  width: 100%;
+  height: 40px !important;
+  padding: 8px 14px !important;
   font-size: 13px !important;
   border-radius: var(--radius-sm) !important;
-}
-
-.hero-btn-icon, .btn-hero svg, .btn-whatsapp-hero svg {
-  width: 16px !important;
-  height: 16px !important;
-  min-width: 16px;
-  max-width: 16px;
-  max-height: 16px;
-  flex-shrink: 0;
+  justify-content: center;
 }
 
 .hero-trust-bar {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.05);
-  padding: 10px 16px;
+  padding: 10px 14px;
   border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -740,7 +729,7 @@ section {
 }
 
 .trust-icon {
-  font-size: 16px;
+  font-size: 14px;
   color: #f59e0b;
 }
 
@@ -756,13 +745,11 @@ section {
 }
 
 .trust-divider {
-  width: 1px;
-  height: 26px;
-  background: rgba(255, 255, 255, 0.15);
+  display: none;
 }
 
 .hero-scroll-track {
-  height: 350vh;
+  height: 300vh;
 }
 
 /* ==========================================================================
@@ -775,19 +762,19 @@ section {
 .trust-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 24px;
 }
 
 .trust-card {
   background: var(--surface);
   border: 1px solid var(--border-color);
-  padding: 32px;
+  padding: 24px;
   border-radius: var(--radius-lg);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .trust-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-md);
 }
 
@@ -797,46 +784,46 @@ section {
 }
 
 .card-icon-box {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   background: #ffffff;
   color: var(--primary);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   box-shadow: var(--shadow-sm);
 }
 
 .card-icon-box svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
 
 .trust-card h3 {
   font-family: var(--font-heading);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--primary-dark);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .trust-card p {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-muted);
 }
 
 .rating-large {
   font-family: var(--font-heading);
-  font-size: 42px;
+  font-size: 38px;
   font-weight: 800;
   color: var(--primary-dark);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .rating-large span {
-  font-size: 20px;
+  font-size: 18px;
   color: var(--text-light);
   font-weight: 600;
 }
@@ -851,13 +838,13 @@ section {
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 24px;
 }
 
 .service-card {
   background: var(--surface-card);
   border: 1px solid var(--border-color);
-  padding: 32px;
+  padding: 24px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   transition: all 0.3s ease;
@@ -866,58 +853,53 @@ section {
 }
 
 .service-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-md);
   border-color: var(--border-glow);
 }
 
 .service-icon {
-  width: 52px;
-  height: 52px;
+  width: 46px;
+  height: 46px;
   background: var(--secondary-light);
   color: var(--secondary);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .service-icon svg {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
 }
 
 .service-name {
   font-family: var(--font-heading);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--primary-dark);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .service-desc {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-muted);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   flex-grow: 1;
 }
 
 .service-link {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--primary);
   cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.service-link:hover {
-  color: var(--primary-dark);
 }
 
 .services-disclaimer {
-  margin-top: 40px;
-  font-size: 13px;
+  margin-top: 32px;
+  font-size: 12px;
   color: var(--text-light);
 }
 
@@ -931,7 +913,7 @@ section {
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
-  gap: 60px;
+  gap: 40px;
   align-items: center;
 }
 
@@ -940,64 +922,63 @@ section {
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
-  border: 4px solid #ffffff;
+  border: 3px solid #ffffff;
 }
 
 .doctor-photo {
   width: 100%;
-  height: 480px;
+  height: 420px;
   object-fit: cover;
   display: block;
 }
 
 .doctor-badge {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  padding: 16px 20px;
+  backdrop-filter: blur(10px);
+  padding: 12px 16px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
 }
 
 .doc-name {
   display: block;
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
   color: var(--primary-dark);
 }
 
 .doc-title {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--secondary);
   font-weight: 600;
 }
 
 .bio-text p {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--text-muted);
-  margin-bottom: 16px;
-  line-height: 1.7;
+  margin-bottom: 14px;
+  line-height: 1.65;
 }
 
 .philosophy-box {
   background: var(--surface-tint);
   border: 1px solid var(--border-color);
-  padding: 24px;
+  padding: 20px;
   border-radius: var(--radius-md);
-  margin: 24px 0 32px;
+  margin: 20px 0 28px;
 }
 
 .philosophy-box h4 {
   font-family: var(--font-heading);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--primary-dark);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .philosophy-box ul {
@@ -1005,11 +986,11 @@ section {
 }
 
 .philosophy-box li {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-muted);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   position: relative;
-  padding-left: 20px;
+  padding-left: 18px;
 }
 
 .philosophy-box li::before {
@@ -1022,7 +1003,7 @@ section {
 
 .about-actions {
   display: flex;
-  gap: 16px;
+  gap: 12px;
 }
 
 /* ==========================================================================
@@ -1036,23 +1017,23 @@ section {
   background: var(--surface-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 32px;
+  padding: 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 48px;
+  margin-bottom: 36px;
   box-shadow: var(--shadow-sm);
 }
 
 .score-box {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .big-score {
   font-family: var(--font-heading);
-  font-size: 52px;
+  font-size: 44px;
   font-weight: 800;
   color: var(--primary-dark);
   line-height: 1;
@@ -1060,13 +1041,13 @@ section {
 
 .stars-gold {
   color: #f59e0b;
-  font-size: 20px;
-  letter-spacing: 2px;
+  font-size: 18px;
+  letter-spacing: 1px;
 }
 
 .total-reviews {
   display: block;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 
@@ -1076,28 +1057,28 @@ section {
 
 .g-logo {
   font-family: var(--font-heading);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   color: #4285f4;
 }
 
 .google-badge-info p {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-muted);
-  max-width: 340px;
+  max-width: 300px;
 }
 
 .reviews-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  margin-bottom: 40px;
+  gap: 24px;
+  margin-bottom: 32px;
 }
 
 .review-card {
   background: var(--surface-card);
   border: 1px solid var(--border-color);
-  padding: 28px;
+  padding: 24px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   display: flex;
@@ -1107,13 +1088,13 @@ section {
 .review-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 .avatar {
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   background: var(--primary-light);
   color: var(--primary);
   font-weight: 700;
@@ -1125,27 +1106,23 @@ section {
 
 .review-header strong {
   display: block;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-main);
 }
 
 .review-body {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-muted);
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   flex-grow: 1;
   font-style: italic;
 }
 
 .review-source {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--secondary);
   font-weight: 600;
-}
-
-.reviews-cta {
-  margin-top: 20px;
 }
 
 /* ==========================================================================
@@ -1158,103 +1135,102 @@ section {
 .location-grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  gap: 60px;
+  gap: 40px;
 }
 
 .info-list {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  margin: 32px 0 40px;
+  gap: 20px;
+  margin: 24px 0 32px;
 }
 
 .info-item {
   display: flex;
-  gap: 16px;
+  gap: 14px;
 }
 
 .info-icon {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .info-item strong {
   display: block;
   font-family: var(--font-heading);
-  font-size: 16px;
+  font-size: 15px;
   color: var(--primary-dark);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .info-item p {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .phone-link {
   color: var(--primary);
   text-decoration: none;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .location-action-btns {
   display: flex;
-  gap: 16px;
+  gap: 12px;
 }
 
 /* Appointment Form Card */
 .appointment-card {
   background: var(--surface);
   border: 1px solid var(--border-color);
-  padding: 36px;
+  padding: 28px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
 }
 
 .card-header h3 {
   font-family: var(--font-heading);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--primary-dark);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .card-header p {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-muted);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .appointment-form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
 .form-group label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-main);
 }
 
 .form-group input, .form-group select {
   width: 100%;
-  padding: 12px 16px;
+  padding: 10px 14px;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-main);
   background: #ffffff;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-group input:focus, .form-group select:focus {
@@ -1263,11 +1239,10 @@ section {
 }
 
 .form-feedback {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   text-align: center;
-
-  margin-top: 8px;
+  margin-top: 6px;
 }
 .form-feedback.success { color: #059669; }
 .form-feedback.error { color: #dc2626; }
@@ -1278,32 +1253,34 @@ section {
 .footer {
   background: var(--primary-dark);
   color: #ffffff;
-  padding: 60px 0 30px;
+  padding: 48px 0 24px;
+  width: 100%;
+  max-width: 100vw;
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
-  gap: 48px;
-  margin-bottom: 40px;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 36px;
+  margin-bottom: 32px;
 }
 
 .footer-title {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 800;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: #ffffff;
 }
 
 .footer-desc {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--primary-light);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .footer-address {
-  font-size: 13px;
+  font-size: 12px;
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -1311,24 +1288,19 @@ section {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .footer-links a {
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
-  font-size: 14px;
-  transition: color 0.2s ease;
-}
-
-.footer-links a:hover {
-  color: var(--secondary);
+  font-size: 13px;
 }
 
 .footer-phone a {
   color: var(--secondary);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   text-decoration: none;
 }
 
@@ -1336,28 +1308,28 @@ section {
   color: var(--whatsapp);
   text-decoration: none;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .footer-hours {
-  font-size: 13px;
+  font-size: 12px;
   color: rgba(255, 255, 255, 0.7);
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .footer-rating-badge {
-  margin-top: 14px;
-  font-size: 13px;
+  margin-top: 10px;
+  font-size: 12px;
   background: rgba(255, 255, 255, 0.1);
-  padding: 6px 12px;
+  padding: 4px 10px;
   border-radius: var(--radius-sm);
   display: inline-block;
 }
 
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 24px;
-  font-size: 13px;
+  padding-top: 20px;
+  font-size: 12px;
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -1367,28 +1339,27 @@ section {
 .mobile-floating-actions {
   display: none;
   position: fixed;
-  bottom: 74px;
-  right: 18px;
+  bottom: 70px;
+  right: 12px;
   flex-direction: column;
-  gap: 12px;
-  z-index: 9995;
+  gap: 10px;
+  z-index: 9999;
 }
 
 .fab-btn {
-  width: 50px;
-  height: 50px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease;
 }
 
 .fab-btn:active {
-  transform: scale(0.92);
+  transform: scale(0.9);
 }
 
 .fab-whatsapp {
@@ -1404,19 +1375,19 @@ section {
 }
 
 .fab-btn svg {
-  width: 24px !important;
-  height: 24px !important;
+  width: 22px !important;
+  height: 22px !important;
 }
 
 @keyframes pulse-wa {
   0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
-  70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+  70% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
   100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
 @keyframes pulse-call {
   0% { box-shadow: 0 0 0 0 rgba(0, 86, 179, 0.6); }
-  70% { box-shadow: 0 0 0 14px rgba(0, 86, 179, 0); }
+  70% { box-shadow: 0 0 0 12px rgba(0, 86, 179, 0); }
   100% { box-shadow: 0 0 0 0 rgba(0, 86, 179, 0); }
 }
 
@@ -1429,11 +1400,12 @@ section {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 60px;
+  max-width: 100vw;
+  height: 58px;
   background: #ffffff;
   border-top: 1px solid var(--border-color);
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
-  z-index: 9000;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12);
+  z-index: 9990;
   grid-template-columns: repeat(3, 1fr);
 }
 
@@ -1503,10 +1475,10 @@ section {
 
 .modal-box {
   background: #ffffff;
-  max-width: 480px;
+  max-width: 440px;
   width: 90%;
   border-radius: var(--radius-lg);
-  padding: 36px;
+  padding: 28px;
   position: relative;
   box-shadow: var(--shadow-lg);
   transform: scale(0.9);
@@ -1519,8 +1491,8 @@ section {
 
 .modal-close {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 14px;
+  right: 14px;
   background: none;
   border: none;
   font-size: 24px;
@@ -1530,28 +1502,28 @@ section {
 
 .modal-box h3 {
   font-family: var(--font-heading);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--primary-dark);
   margin-bottom: 4px;
 }
 
 .modal-sub {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--secondary);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 /* ==========================================================================
-   Responsive Breakpoints & Pro Mobile UX
+   Responsive Breakpoints & 100% Strict Mobile Fit
    ========================================================================== */
 @media (max-width: 1024px) {
   .hero-glass-card {
-    max-width: 480px;
+    max-width: 460px;
   }
   .about-grid, .location-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 32px;
   }
   .trust-grid, .services-grid, .reviews-grid, .footer-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1560,11 +1532,11 @@ section {
 
 @media (max-width: 768px) {
   :root {
-    --header-height: 64px;
+    --header-height: 60px;
   }
 
   body {
-    padding-bottom: 60px;
+    padding-bottom: 58px;
   }
 
   .nav-menu, .header-actions, .rating-chip {
@@ -1588,54 +1560,47 @@ section {
   }
 
   .hero-content-overlay {
-    justify-content: center;
-    padding: 0 16px;
+    padding: var(--header-height) 12px 64px;
   }
 
   .hero-glass-card {
     max-width: 100%;
-    padding: 20px;
+    width: 100%;
+    padding: 16px;
     border-radius: 12px;
   }
 
   .hero-title {
-    font-size: 22px;
-    margin-bottom: 10px;
+    font-size: 20px;
+    margin-bottom: 8px;
   }
 
   .hero-description {
-    font-size: 13px;
-    margin-bottom: 16px;
+    font-size: 12px;
+    margin-bottom: 14px;
   }
 
   .hero-cta-group {
-    display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 8px;
+    gap: 6px;
+    margin-bottom: 14px;
   }
 
   .btn-hero, .btn-whatsapp-hero {
     width: 100%;
-    height: 40px !important;
-    padding: 8px 14px !important;
-    font-size: 13px !important;
-    justify-content: center;
+    height: 38px !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
   }
 
   .hero-trust-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px 14px;
-  }
-
-  .trust-divider {
-    display: none;
+    padding: 8px 12px;
+    gap: 6px;
   }
 
   .section-title {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .trust-grid, .services-grid, .reviews-grid, .footer-grid {
@@ -1647,9 +1612,19 @@ section {
     width: 100%;
   }
 
+  .rating-overview-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .google-badge-info {
+    text-align: left;
+  }
+
   .btn-primary, .btn-secondary, .btn-whatsapp-lg {
     width: 100%;
-    padding: 12px 16px;
+    padding: 10px 14px;
   }
 }
 

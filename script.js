@@ -1,6 +1,6 @@
 /**
  * CHANDIPUR DENTAL CLINIC - MAIN APPLICATION LOGIC
- * High-performance 300-frame Hero sequence engine, booking modal, & interactive UI
+ * High-performance 300-frame Hero sequence engine, booking modal, & mobile fast UI
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalForm = document.getElementById('modal-form');
 
   /* ==========================================================================
-     1. Image Preloading Engine (300 Sequence Frames)
+     1. Image Preloading Engine (Fast Batching)
      ========================================================================== */
   function getFrameUrl(index) {
     const padded = String(index).padStart(3, '0');
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       img.onerror = () => {
-        setTimeout(() => { img.src = getFrameUrl(i); }, 300);
+        setTimeout(() => { img.src = getFrameUrl(i); }, 200);
       };
 
       frames.push(img);
@@ -73,15 +73,16 @@ document.addEventListener('DOMContentLoaded', () => {
       resizeCanvas();
       renderFrame(0);
       startSequenceRenderLoop();
-    }, 200);
+    }, 150);
   }
 
   /* ==========================================================================
-     2. Hero Canvas Resize & Sequence Rendering Engine
+     2. Hero Canvas Resize & Mobile Optimized Sequence Engine
      ========================================================================== */
   function resizeCanvas() {
     if (!canvas || !ctx) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const isMobile = window.innerWidth <= 768;
+    const dpr = isMobile ? 1.2 : Math.min(window.devicePixelRatio || 1, 2);
     const container = canvas.parentElement;
     canvas.width = container.clientWidth * dpr;
     canvas.height = container.clientHeight * dpr;
@@ -157,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
      3. Header & Navigation Controls
      ========================================================================== */
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
+    if (window.scrollY > 30) {
       mainHeader.classList.add('scrolled');
     } else {
       mainHeader.classList.remove('scrolled');
@@ -220,6 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
   handleFormSubmit(modalForm, document.getElementById('modal-feedback'));
 
   window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('orientationchange', resizeCanvas);
 
   /* Initialize Image Preloader */
   preloadImages();
